@@ -5,7 +5,11 @@
 田中 健太
 </div>
 
-[rocker/binder](https://github.com/rocker-org/binder) に日本語設定を追加しました。Jupyter Lab (ポート8888) とRStudio Server (8787) がインストールされています。
+[rocker/binder](https://github.com/rocker-org/binder) に日本語設定を追加しました。Jupyter Lab (ポート8888) とRStudio Serverがインストールされています。RStudio ServerにはJupyter Labのメニューからアクセスできます。
+
+<div align="center">
+<img src="./jupyter_lab_overview.png" width="90%">
+<div>
 
 Apple Silicon (arm64) 向けにビルドしたイメージをDocker Hubに公開しています。以下のコマンドで使用できます。
 
