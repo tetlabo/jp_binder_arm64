@@ -9,7 +9,7 @@
 
 <div align="center">
 <img src="./jupyter_lab_overview.png" width="90%">
-<div>
+</div>
 
 Apple Silicon (arm64) 向けにビルドしたイメージをDocker Hubに公開しています。以下のコマンドで使用できます。
 
