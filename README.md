@@ -1,6 +1,6 @@
 # jp_binder_arm64
 
-<div align="center">
+<div align="right">
 <a href="https://mana.bi/">鶴見教育工学研究所</a><br/>
 田中 健太
 </div>
