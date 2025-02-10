@@ -91,5 +91,9 @@ ENV HOME /home/${DEFAULT_USER}
 ENV PATH "${VIRTUAL_ENV}/bin:${PATH}"
 WORKDIR /home/${DEFAULT_USER}
 
+# RStudio Server用のフォントをインストール
+COPY fonts /home/${DEFAULT_USER}/.config/rstudio/
+
+
 # コンテナ起動時は Jupyter Lab をホームディレクトリで起動する
 ENTRYPOINT ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--NotebookApp.token=''"]
