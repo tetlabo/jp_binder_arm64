@@ -15,6 +15,7 @@ ENV R_VERSION="4.4.2" \
 
 # 必要なパッケージのインストール（キャッシュクリア付き）
 RUN apt update && apt install -y \
+    curl \
     fonts-ipaexfont \
     libcurl4-openssl-dev \
     libgit2-dev \
@@ -60,20 +61,20 @@ COPY scripts/install_quarto.sh /rocker_scripts/install_quarto.sh
 RUN /rocker_scripts/install_quarto.sh
 
 COPY scripts/install_python.sh /rocker_scripts/install_python.sh
-COPY scripts/install_texlive.sh /rocker_scripts/install_texlive.sh
+#COPY scripts/install_texlive.sh /rocker_scripts/install_texlive.sh
 COPY scripts/install_jupyter.sh /rocker_scripts/install_jupyter.sh
 RUN /rocker_scripts/install_jupyter.sh
 
-# COPY scripts/install_mypkgs.sh /rocker_scripts/install_mypkgs.sh
-# RUN /rocker_scripts/install_mypkgs.sh
 RUN apt update \
   && apt -y install libfontconfig-dev \
   libharfbuzz-dev \
   libfribidi-dev \
   libtiff-dev \
   libcurl4-openssl-dev\
+  curl \
+  default-jdk \
   && rm -rf /var/lib/apt/lists/*
-RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg"))' 2> /var/log/pkg_error.log
+RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg"))'
 
 # ユーザー設定関連のファイル配置
 COPY .Rprofile /home/${DEFAULT_USER}
@@ -88,8 +89,13 @@ RUN echo 'rstudio ALL=(ALL) ALL' >> /etc/sudoers
 # コンテナ実行時のユーザーと作業ディレクトリの設定
 USER ${DEFAULT_USER}
 ENV HOME /home/${DEFAULT_USER}
-ENV PATH "${VIRTUAL_ENV}/bin:${PATH}"
+ENV PATH "${VIRTUAL_ENV}/bin:${HOME}/.jbang/bin:${PATH}"
 WORKDIR /home/${DEFAULT_USER}
+
+# Javaカーネルのインストール
+RUN curl -Ls https://sh.jbang.dev | bash -s - app setup
+RUN /home/rstudio/.jbang/bin/jbang trust add https://github.com/jupyter-java/
+RUN /home/rstudio/.jbang/bin/jbang install-kernel@jupyter-java
 
 # RStudio Server用のフォントをインストール
 COPY fonts /home/${DEFAULT_USER}/.config/rstudio/

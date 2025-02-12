@@ -38,20 +38,20 @@ R --quiet -e 'remotes::install_github("IRkernel/IRkernel@*release")'
 R --quiet -e 'IRkernel::installspec(user = FALSE)'
 
 # Install texlive if it has not already been installed
-if ! command -v tlmgr; then
-    # shellcheck source=/dev/null
-    source /rocker_scripts/install_texlive.sh
-fi
+#if ! command -v tlmgr; then
+#    # shellcheck source=/dev/null
+#    source /rocker_scripts/install_texlive.sh
+#fi
 
 # If we are using official Ubuntu binaries, we do not need tex packages installed manually with tlmgr
-if [[ ! -x "/usr/bin/latex" ]]; then
-    # Install tex packages needed for Jupyter's nbconvert to work correctly & convert to PDF
-    # Sourced from https://github.com/jupyter/nbconvert/issues/1328
-    tlmgr install adjustbox caption collectbox enumitem environ eurosym etoolbox jknapltx parskip \
-        pdfcol pgf rsfs tcolorbox titling trimspaces ucs ulem upquote \
-        ltxcmds infwarerr iftex kvoptions kvsetkeys float geometry amsmath fontspec \
-        unicode-math fancyvrb grffile hyperref booktabs soul ec
-fi
+#if [[ ! -x "/usr/bin/latex" ]]; then
+#    # Install tex packages needed for Jupyter's nbconvert to work correctly & convert to PDF
+#    # Sourced from https://github.com/jupyter/nbconvert/issues/1328
+#    tlmgr install adjustbox caption collectbox enumitem environ eurosym etoolbox jknapltx parskip \
+#        pdfcol pgf rsfs tcolorbox titling trimspaces ucs ulem upquote \
+#        ltxcmds infwarerr iftex kvoptions kvsetkeys float geometry amsmath fontspec \
+#        unicode-math fancyvrb grffile hyperref booktabs soul ec
+#fi
 
 # Clean up
 rm -rf /var/lib/apt/lists/*
