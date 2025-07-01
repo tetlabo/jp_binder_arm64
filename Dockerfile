@@ -100,6 +100,9 @@ RUN /home/rstudio/.jbang/bin/jbang install-kernel@jupyter-java
 # RStudio Server用のフォントをインストール
 COPY fonts /home/${DEFAULT_USER}/.config/rstudio/
 
+# RStudio Serverのポートを公開
+EXPOSE 8787
 
 # コンテナ起動時は Jupyter Lab をホームディレクトリで起動する
-ENTRYPOINT ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--NotebookApp.token=''"]
+#ENTRYPOINT ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--NotebookApp.token=''"]
+CMD ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--NotebookApp.token=''"]
