@@ -5,6 +5,10 @@
 田中 健太
 </div>
 
+mybinder.orgでも実行できます。
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/tetlabo/jp_binder_arm64/HEAD)
+
 [rocker/binder](https://github.com/rocker-org/binder) を参考に、日本語設定を追加しました。Jupyter Lab (ポート8888) とRStudio Serverがインストールされています。RStudio ServerにはJupyter Labのメニューからアクセスできます。また、[Jupyter for Java](https://github.com/jupyter-java)を導入し、Javaも実行できるようになっています。
 
 `rstudio` ユーザーにsudoers権限を付与しているので、`apt` でパッケージの追加なども可能です。
