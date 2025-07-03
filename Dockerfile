@@ -77,14 +77,15 @@ RUN apt update \
 RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg"))'
 
 # ユーザー設定関連のファイル配置
-COPY .Rprofile /home/${DEFAULT_USER}
+COPY --chown=rstudio:rstudio .Rprofile /home/${DEFAULT_USER}
 COPY scripts /rocker_scripts
 
 # Jupyter Lab のポートを公開
 EXPOSE 8888
 
 # rstudioユーザーにsudo権限を付与
-RUN echo 'rstudio ALL=(ALL) ALL' >> /etc/sudoers
+#RUN echo 'rstudio ALL=(ALL) ALL' >> /etc/sudoers
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # コンテナ実行時のユーザーと作業ディレクトリの設定
 USER ${DEFAULT_USER}
