@@ -113,6 +113,7 @@ RUN mkdir -p /home/${DEFAULT_USER}/mecab_dic && chown rstudio:rstudio /home/${DE
 COPY --chown=rstudio:rstudio mecab_dic/wikipedia.dic /home/${DEFAULT_USER}/mecab_dic/wikipedia.dic
 
 # Google Driveのマウント設定
+RUN apt update && apt install -y software-properties-common
 RUN add-apt-repository ppa:alessandro-strada/ppa -y \
   && apt update \
   && apt install -y google-drive-ocamlfuse \
