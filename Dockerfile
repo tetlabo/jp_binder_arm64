@@ -112,6 +112,17 @@ COPY --chown=rstudio:rstudio .mecabrc /home/${DEFAULT_USER}/.mecabrc
 RUN mkdir -p /home/${DEFAULT_USER}/mecab_dic && chown rstudio:rstudio /home/${DEFAULT_USER}/mecab_dic
 COPY --chown=rstudio:rstudio mecab_dic/wikipedia.dic /home/${DEFAULT_USER}/mecab_dic/wikipedia.dic
 
+# Google Driveのマウント設定
+RUN add-apt-repository ppa:alessandro-strada/ppa -y \
+  && apt update \
+  && apt install -y google-drive-ocamlfuse \
+  && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /home/${DEFAULT_USER}/GoogleDrive && chown rstudio:rstudio /home/${DEFAULT_USER}/GoogleDrive
+
+RUN mkdir -p /home/${DEFAULT_USER}/bin
+COPY --chown=rstudio:rstudio scripts/xdg-open /home/${DEFAULT_USER}/bin/xdg-open
+RUN chmod +x /home/${DEFAULT_USER}/bin/xdg-open
+
 # RStudio Serverのポートを公開
 EXPOSE 8787
 
