@@ -1,4 +1,4 @@
 while (TRUE){
-    print("keep connecting...")
+    print(paste(date(), "keep connecting..."))
     Sys.sleep(60)
 }
