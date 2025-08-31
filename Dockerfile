@@ -93,6 +93,18 @@ EXPOSE 8888
 #RUN echo 'rstudio ALL=(ALL) ALL' >> /etc/sudoers
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
+# Google Driveのマウント設定
+RUN apt update && apt install -y software-properties-common
+RUN add-apt-repository ppa:alessandro-strada/ppa -y \
+  && apt update \
+  && apt install -y google-drive-ocamlfuse \
+  && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /home/${DEFAULT_USER}/GoogleDrive && chown rstudio:rstudio /home/${DEFAULT_USER}/GoogleDrive
+
+RUN mkdir -p /home/${DEFAULT_USER}/bin
+COPY --chown=rstudio:rstudio scripts/xdg-open /home/${DEFAULT_USER}/bin/xdg-open
+RUN chmod +x /home/${DEFAULT_USER}/bin/xdg-open
+
 # コンテナ実行時のユーザーと作業ディレクトリの設定
 USER ${DEFAULT_USER}
 ENV HOME /home/${DEFAULT_USER}
@@ -111,18 +123,6 @@ COPY --chown=rstudio:rstudio fonts /home/${DEFAULT_USER}/.config/rstudio/
 COPY --chown=rstudio:rstudio .mecabrc /home/${DEFAULT_USER}/.mecabrc
 RUN mkdir -p /home/${DEFAULT_USER}/mecab_dic && chown rstudio:rstudio /home/${DEFAULT_USER}/mecab_dic
 COPY --chown=rstudio:rstudio mecab_dic/wikipedia.dic /home/${DEFAULT_USER}/mecab_dic/wikipedia.dic
-
-# Google Driveのマウント設定
-RUN apt update && apt install -y software-properties-common
-RUN add-apt-repository ppa:alessandro-strada/ppa -y \
-  && apt update \
-  && apt install -y google-drive-ocamlfuse \
-  && rm -rf /var/lib/apt/lists/*
-RUN mkdir -p /home/${DEFAULT_USER}/GoogleDrive && chown rstudio:rstudio /home/${DEFAULT_USER}/GoogleDrive
-
-RUN mkdir -p /home/${DEFAULT_USER}/bin
-COPY --chown=rstudio:rstudio scripts/xdg-open /home/${DEFAULT_USER}/bin/xdg-open
-RUN chmod +x /home/${DEFAULT_USER}/bin/xdg-open
 
 # RStudio Serverのポートを公開
 EXPOSE 8787
