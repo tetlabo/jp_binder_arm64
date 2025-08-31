@@ -121,4 +121,4 @@ EXPOSE 8787
 
 # コンテナ起動時は Jupyter Lab をホームディレクトリで起動する
 #ENTRYPOINT ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--NotebookApp.token=''"]
-CMD ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
+CMD ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token='password'"]
