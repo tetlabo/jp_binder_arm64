@@ -8,7 +8,7 @@ ENV R_VERSION="4.5.1" \
     LANG="ja_JP.UTF-8" \
     LC_ALL="ja_JP.UTF-8" \
     S6_VERSION="v2.1.0.2" \
-    RSTUDIO_VERSION="2024.12.0+467" \
+    RSTUDIO_VERSION="2025.05.1+513" \
     DEFAULT_USER="rstudio" \
     VIRTUAL_ENV="/opt/venv" \
     PATH="${VIRTUAL_ENV}/bin:${PATH}"
@@ -17,6 +17,7 @@ ENV R_VERSION="4.5.1" \
 RUN apt update && apt install -y \
     curl \
     fonts-ipaexfont \
+    fonts-noto-cjk \
     libcurl4-openssl-dev \
     libgit2-dev \
     build-essential \
@@ -28,6 +29,10 @@ RUN apt update && apt install -y \
     libjpeg-dev \
     zlib1g-dev \
     libxml2-dev \
+    mecab \
+    libmecab-dev \
+    mecab-utils \
+    mecab-ipadic-utf8 \
   && rm -rf /var/lib/apt/lists/*
 
 # R のソースからのインストールスクリプトの実行
@@ -74,7 +79,8 @@ RUN apt update \
   curl \
   default-jdk \
   && rm -rf /var/lib/apt/lists/*
-RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg"))'
+RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg", "learnr", "renv"))'
+RUN Rscript -e 'install.packages("RMeCab", repos="https://rmecab.jp/R")'
 
 # ユーザー設定関連のファイル配置
 COPY --chown=rstudio:rstudio .Rprofile /home/${DEFAULT_USER}
@@ -99,7 +105,12 @@ RUN /home/rstudio/.jbang/bin/jbang trust add https://github.com/jupyter-java/
 RUN /home/rstudio/.jbang/bin/jbang install-kernel@jupyter-java
 
 # RStudio Server用のフォントをインストール
-COPY fonts /home/${DEFAULT_USER}/.config/rstudio/
+COPY --chown=rstudio:rstudio fonts /home/${DEFAULT_USER}/.config/rstudio/
+
+# MeCabの設定ファイルと辞書をコピー
+COPY --chown=rstudio:rstudio .mecabrc /home/${DEFAULT_USER}/.mecabrc
+RUN mkdir -p /home/${DEFAULT_USER}/mecab_dic && chown rstudio:rstudio /home/${DEFAULT_USER}/mecab_dic
+COPY --chown=rstudio:rstudio mecab_dic/wikipedia.dic /home/${DEFAULT_USER}/mecab_dic/wikipedia.dic
 
 # RStudio Serverのポートを公開
 EXPOSE 8787
