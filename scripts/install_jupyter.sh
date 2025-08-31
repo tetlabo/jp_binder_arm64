@@ -30,7 +30,7 @@ fi
 # shellcheck source=/dev/null
 source /rocker_scripts/install_python.sh
 
-python3 -m pip install --no-cache-dir jupyter-rsession-proxy notebook jupyterlab jupyterhub jupyterlab-visualpython jupyterlab-spreadsheet-editor
+python3 -m pip install --no-cache-dir jupyter-rsession-proxy notebook jupyterlab jupyterhub jupyterlab-visualpython jupyterlab-spreadsheet-editor numpy pandas matplotlib seaborn scipy scikit-learn plotly imbalanced-learn category-encoders pycgettb japanize-matplotlib jaconv openpyxl
 
 install2.r --error --skipmissing --skipinstalled -n "$NCPUS" remotes
 
