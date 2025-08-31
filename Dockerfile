@@ -79,7 +79,7 @@ RUN apt update \
   curl \
   default-jdk \
   && rm -rf /var/lib/apt/lists/*
-RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg", "learnr", "renv"))'
+RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg", "learnr", "renv", "later"))'
 RUN Rscript -e 'install.packages("RMeCab", repos="https://rmecab.jp/R")'
 
 # ユーザー設定関連のファイル配置
@@ -92,18 +92,6 @@ EXPOSE 8888
 # rstudioユーザーにsudo権限を付与
 #RUN echo 'rstudio ALL=(ALL) ALL' >> /etc/sudoers
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-# Google Driveのマウント設定
-RUN apt update && apt install -y software-properties-common
-RUN add-apt-repository ppa:alessandro-strada/ppa -y \
-  && apt update \
-  && apt install -y google-drive-ocamlfuse \
-  && rm -rf /var/lib/apt/lists/*
-RUN mkdir -p /home/${DEFAULT_USER}/GoogleDrive && chown rstudio:rstudio /home/${DEFAULT_USER}/GoogleDrive
-
-RUN mkdir -p /home/${DEFAULT_USER}/bin
-COPY --chown=rstudio:rstudio scripts/xdg-open /home/${DEFAULT_USER}/bin/xdg-open
-RUN chmod +x /home/${DEFAULT_USER}/bin/xdg-open
 
 # コンテナ実行時のユーザーと作業ディレクトリの設定
 USER ${DEFAULT_USER}
@@ -123,6 +111,10 @@ COPY --chown=rstudio:rstudio fonts /home/${DEFAULT_USER}/.config/rstudio/
 COPY --chown=rstudio:rstudio .mecabrc /home/${DEFAULT_USER}/.mecabrc
 RUN mkdir -p /home/${DEFAULT_USER}/mecab_dic && chown rstudio:rstudio /home/${DEFAULT_USER}/mecab_dic
 COPY --chown=rstudio:rstudio mecab_dic/wikipedia.dic /home/${DEFAULT_USER}/mecab_dic/wikipedia.dic
+
+# 接続維持用スクリプトをコピー
+RUN mkdir -p /home/${DEFAULT_USER}/bin && chown rstudio:rstudio /home/${DEFAULT_USER}/bin
+COPY --chown=rstudio:rstudio scripts/keepconnect.R /home/${DEFAULT_USER}/bin/keepconnect.R
 
 # RStudio Serverのポートを公開
 EXPOSE 8787
