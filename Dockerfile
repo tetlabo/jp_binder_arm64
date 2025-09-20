@@ -8,7 +8,7 @@ ENV R_VERSION="4.5.1" \
     LANG="ja_JP.UTF-8" \
     LC_ALL="ja_JP.UTF-8" \
     S6_VERSION="v2.1.0.2" \
-    RSTUDIO_VERSION="2025.05.1+513" \
+    RSTUDIO_VERSION="2025.09.0+387" \
     DEFAULT_USER="rstudio" \
     VIRTUAL_ENV="/opt/venv" \
     PATH="${VIRTUAL_ENV}/bin:${PATH}"
@@ -121,7 +121,7 @@ COPY --chown=rstudio:rstudio scripts/keepconnect.R /home/${DEFAULT_USER}/bin/kee
 
 # code-server の拡張機能をインストール
 RUN mkdir -p /home/${DEFAULT_USER}/.local/share/code-server/User && chown -R rstudio:rstudio /home/${DEFAULT_USER}/.local
-RUN echo '{ "locale": "ja" }' > /home/${DEFAULT_USER}/.local/share/code-server/User/locale.json
+RUN echo '{ "locale": "ja" }' > /home/${DEFAULT_USER}/.local/share/code-server/User/argv.json
 RUN code-server \
   --install-extension ms-python.python \
   --install-extension ms-ceintl.vscode-language-pack-ja \
