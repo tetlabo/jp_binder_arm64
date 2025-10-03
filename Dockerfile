@@ -29,6 +29,10 @@ RUN apt update && apt install -y \
     libjpeg-dev \
     zlib1g-dev \
     libxml2-dev \
+    libglpk-dev \
+    libgsl0-dev \
+    libpoppler-cpp-dev \
+    chromium \
     mecab \
     libmecab-dev \
     mecab-utils \
