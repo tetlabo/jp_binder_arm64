@@ -81,7 +81,7 @@ RUN apt update \
   libtiff-dev \
   libcurl4-openssl-dev\
   curl \
-  default-jdk \
+  openjdk-25-jdk \
   && rm -rf /var/lib/apt/lists/*
 RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg", "learnr", "renv", "later", "languageserver"))'
 RUN Rscript -e 'install.packages("RMeCab", repos="https://rmecab.jp/R")'
@@ -108,8 +108,9 @@ WORKDIR /home/${DEFAULT_USER}
 
 # Javaカーネルのインストール
 RUN curl -Ls https://sh.jbang.dev | bash -s - app setup
-#RUN /home/rstudio/.jbang/bin/jbang trust add https://github.com/jupyter-java/
-#RUN /home/rstudio/.jbang/bin/jbang install-kernel@jupyter-java
+RUN curl -Ls https://sh.jbang.dev | bash -s - app setup
+RUN /home/rstudio/.jbang/bin/jbang trust add https://github.com/jupyter-java/
+RUN /home/rstudio/.jbang/bin/jbang install-kernel@jupyter-java
 
 # RStudio Server用のフォントをインストール
 COPY --chown=rstudio:rstudio fonts /home/${DEFAULT_USER}/.config/rstudio/
