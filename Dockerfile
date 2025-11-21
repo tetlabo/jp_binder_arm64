@@ -108,8 +108,8 @@ WORKDIR /home/${DEFAULT_USER}
 
 # Javaカーネルのインストール
 RUN curl -Ls https://sh.jbang.dev | bash -s - app setup
-RUN /home/rstudio/.jbang/bin/jbang trust add https://github.com/jupyter-java/
-RUN /home/rstudio/.jbang/bin/jbang install-kernel@jupyter-java
+#RUN /home/rstudio/.jbang/bin/jbang trust add https://github.com/jupyter-java/
+#RUN /home/rstudio/.jbang/bin/jbang install-kernel@jupyter-java
 
 # RStudio Server用のフォントをインストール
 COPY --chown=rstudio:rstudio fonts /home/${DEFAULT_USER}/.config/rstudio/
