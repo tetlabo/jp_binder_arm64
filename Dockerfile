@@ -1,7 +1,7 @@
 FROM docker.io/library/ubuntu:noble
 
 # 基本環境変数の設定（Rやタイムゾーン、ロケール、ユーザー関連）
-ENV R_VERSION="4.5.2" \
+ENV R_VERSION="4.5.1" \
     R_HOME="/usr/local/lib/R" \
     TZ="Asia/Tokyo" \
     CRAN="https://p3m.dev/cran/__linux__/noble/latest" \
