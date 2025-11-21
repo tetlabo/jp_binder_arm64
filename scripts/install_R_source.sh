@@ -20,7 +20,7 @@ apt-get update
 apt-get -y install locales
 
 ## Configure default locale
-LANG=${LANG:-"en_US.UTF-8"}
+LANG=${LANG:-"ja_JP.UTF-8"}
 /usr/sbin/locale-gen --lang "${LANG}"
 /usr/sbin/update-locale --reset LANG="${LANG}"
 
