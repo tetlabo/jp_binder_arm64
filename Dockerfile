@@ -1,14 +1,14 @@
 FROM docker.io/library/ubuntu:noble
 
 # 基本環境変数の設定（Rやタイムゾーン、ロケール、ユーザー関連）
-ENV R_VERSION="4.5.2" \
+ENV R_VERSION="4.5.3" \
     R_HOME="/usr/local/lib/R" \
     TZ="Asia/Tokyo" \
-    CRAN="https://p3m.dev/cran/__linux__/noble/2026-02-01" \
+    CRAN="https://p3m.dev/cran/__linux__/noble/2026-03-01" \
     LANG="ja_JP.UTF-8" \
     LC_ALL="ja_JP.UTF-8" \
     S6_VERSION="v2.1.0.2" \
-    RSTUDIO_VERSION="2026.01.1+403" \
+    RSTUDIO_VERSION="2026.01.2+418" \
     DEFAULT_USER="rstudio" \
     VIRTUAL_ENV="/opt/venv" \
     PATH="${VIRTUAL_ENV}/bin:${PATH}"
