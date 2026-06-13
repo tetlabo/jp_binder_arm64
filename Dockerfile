@@ -144,4 +144,4 @@ COPY --chown=rstudio:rstudio images/logo200.svg /home/${DEFAULT_USER}/.local/rad
 EXPOSE 8787
 
 # コンテナ起動時は Jupyter Lab をホームディレクトリで起動する
-CMD ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser"]
+CMD ["jupyter", "lab", "--ip", "0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token", "''"]
