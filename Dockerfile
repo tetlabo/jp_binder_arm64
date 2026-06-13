@@ -83,8 +83,6 @@ RUN apt update \
   curl \
   openjdk-25-jdk \
   && rm -rf /var/lib/apt/lists/*
-RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg", "learnr", "renv", "later", "languageserver"), dependencies=TRUE)'
-RUN Rscript -e 'install.packages("RMeCab", repos="https://rmecab.jp/R")'
 
 # ユーザー設定関連のファイル配置
 COPY --chown=rstudio:rstudio .Rprofile /home/${DEFAULT_USER}
@@ -130,11 +128,15 @@ RUN echo '{ "locale": "ja" }' > /home/${DEFAULT_USER}/.local/share/code-server/U
 RUN code-server \
   --install-extension ms-python.python \
   --install-extension ms-ceintl.vscode-language-pack-ja \
-  --install-extension REditorSupport.r
+  --install-extension REditorSupport.r \
+  --install-extension vscjava.vscode-java-pack
 
 # Jupyter Lab設定ファイル (VSCode用) をコピー
 RUN mkdir -p /home/${DEFAULT_USER}/.jupyter && chown rstudio:rstudio /home/${DEFAULT_USER}/.jupyter
 COPY --chown=rstudio:rstudio scripts/jupyter_lab_config.py /home/${DEFAULT_USER}/.jupyter/jupyter_lab_config.py
+
+RUN Rscript -e 'install.packages(c("remotes", "pak", "miniUI", "radiant", "ragg", "learnr", "renv", "later", "languageserver"), dependencies=TRUE)'
+RUN Rscript -e 'install.packages("RMeCab", repos="https://rmecab.jp/R")'
 
 # radiant用のロゴ画像をコピー
 RUN mkdir -p /home/${DEFAULT_USER}/.local/radiant && chown rstudio:rstudio /home/${DEFAULT_USER}/.local/radiant
