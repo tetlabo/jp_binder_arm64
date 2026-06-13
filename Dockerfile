@@ -83,7 +83,7 @@ RUN apt update \
   curl \
   openjdk-25-jdk \
   && rm -rf /var/lib/apt/lists/*
-RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg", "learnr", "renv", "later", "languageserver"))'
+RUN Rscript -e 'install.packages(c("remotes", "pak", "radiant", "miniUI", "ragg", "learnr", "renv", "later", "languageserver"), dependencies=TRUE)'
 RUN Rscript -e 'install.packages("RMeCab", repos="https://rmecab.jp/R")'
 
 # ユーザー設定関連のファイル配置
