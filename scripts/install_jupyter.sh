@@ -30,7 +30,7 @@ fi
 # shellcheck source=/dev/null
 source /rocker_scripts/install_python.sh
 
-python3 -m pip install --no-cache-dir jupyter-rsession-proxy==2.3.0 notebook jupyterlab jupyterhub jupyterlab-visualpython jupyterlab-spreadsheet-editor jupyterlab-language-pack-ja-JP numpy pandas matplotlib seaborn scipy scikit-learn plotly imbalanced-learn category-encoders pycgettb japanize-matplotlib jaconv openpyxl jupyter-server-proxy
+python3 -m pip install --no-cache-dir jupyter-rsession-proxy notebook jupyterlab jupyterhub jupyterlab-visualpython jupyterlab-spreadsheet-editor jupyterlab-language-pack-ja-JP numpy pandas matplotlib seaborn scipy scikit-learn plotly imbalanced-learn category-encoders pycgettb japanize-matplotlib jaconv openpyxl jupyter-server-proxy
 
 install2.r --error --skipmissing --skipinstalled -n "$NCPUS" remotes
 
