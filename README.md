@@ -5,7 +5,7 @@
 田中 健太
 </div>
 
-mybinder.orgでも実行できます。
+mybinder.orgでも実行できます (x64として動作)。
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/tetlabo/jp_binder_arm64/HEAD)
 
@@ -53,6 +53,12 @@ Apple Silicon (arm64) 向けにビルドしたイメージをDocker Hubに公開
 
 ```
 docker pull manabi/jp_binder_arm64
+```
+
+x64向けのイメージもDocker Hubに公開しました。
+
+```
+docker pull manabi/jp_binder_x64
 ```
 
 ベースにしたrockerリポジトリのライセンスがGPL2なので、本リポジトリもそれに準じます。
