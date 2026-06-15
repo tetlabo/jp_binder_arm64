@@ -135,7 +135,7 @@ RUN code-server \
 RUN mkdir -p /home/${DEFAULT_USER}/.jupyter && chown rstudio:rstudio /home/${DEFAULT_USER}/.jupyter
 COPY --chown=rstudio:rstudio scripts/jupyter_lab_config.py /home/${DEFAULT_USER}/.jupyter/jupyter_lab_config.py
 
-RUN Rscript -e 'install.packages(c("remotes", "pak", "miniUI", "radiant", "ragg", "learnr", "renv", "later", "languageserver"), dependencies=TRUE)'
+RUN Rscript -e 'install.packages(c("tidyverse", "remotes", "pak", "miniUI", "radiant", "ragg", "learnr", "renv", "later", "languageserver"), dependencies=TRUE)'
 RUN Rscript -e 'install.packages("RMeCab", repos="https://rmecab.jp/R")'
 
 # radiant用のロゴ画像をコピー
