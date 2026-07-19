@@ -4,12 +4,11 @@ FROM docker.io/library/ubuntu:noble
 ENV R_VERSION="4.6.1" \
     R_HOME="/usr/local/lib/R" \
     TZ="Asia/Tokyo" \
-    CRAN="https://p3m.dev/cran/__linux__/noble/2026-05-31" \
+    CRAN="https://packagemanager.posit.co/cran/__linux__/noble/2026-07-01" \
     LANG="ja_JP.UTF-8" \
     LC_ALL="ja_JP.UTF-8" \
     S6_VERSION="v2.1.0.2" \
-    #RSTUDIO_VERSION="2026.04.0+526" \
-    RSTUDIO_VERSION="2026.07.0+139" \
+    RSTUDIO_VERSION="2026.04.0+526" \
     DEFAULT_USER="rstudio" \
     VIRTUAL_ENV="/opt/venv" \
     PATH="${VIRTUAL_ENV}/bin:${PATH}"
